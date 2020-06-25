@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participation Form</title>
+
+    <link rel="stylesheet" href="./assets/css/participate.css">
+    <link rel="stylesheet" href="./assets/css/scratch.css">
+</head>
+
+<body>
+    <div class="container participate-div" id="data-div">
+        <div class="heading">
+            <h1>Let's Go!</h1>
+            <p>Enter your IGN, IGID and Facebook/Twitter login details to proceed further.</p>
+        </div>
+        <form id="data">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="number" class="form-control" id="igid" placeholder="In Game Id" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="ign" placeholder="In Game Name" required>
+                </div>
+            </div>
+            <hr>
+            <fieldset class="form-group login-type">
+                <div class="row">
+                    <!-- <legend class="col-form-legend col-sm-2">Login Type</legend> -->
+                    <div class="col-sm-10">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
+                                value="option1" checked>
+                            <label class="form-check-label" for="gridRadios1">
+                                <i class="fab fa-facebook"></i>
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
+                                value="option2">
+                            <label class="form-check-label" for="gridRadios2">
+                                <i class="fab fa-twitter"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <input type="text" id="user" class="form-control" placeholder="Email or Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="pass" class="form-control" placeholder="Password" minlength="8" required>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck" checked>
+                    <label class="form-check-label" for="gridCheck">
+                        I have read and agree to the Terms and Conditions
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-success btn-lg btn-block" id="tapatap">Proceed</button>
+        </form>
+    </div>
+
+    <div class="container container-scratch" id="js-container">
+        <canvas class="canvas" id="js-canvas" width="300" height="300"></canvas>
+        <form class="form" style="visibility: hidden;">
+            <h2>'Allo, 'Allo!</h2>
+            <h1><code>HlkafSYc</code></h1>
+            <div>
+                <input type="text" name="code" placeholder="Secret Code">
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+
+    <script src="./assets/js/jquery-3.5.1.min.js"></script>
+    <script src="./assets/js/scratch.js"></script>
+    <script src="./assets/js/index.js"></script>
+</body>
+
+</html>

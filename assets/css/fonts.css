@@ -1,0 +1,22 @@
+/** import fonts **/
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:300,700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Josefin+Slab&display=swap");
+
+@font-face {
+    font-family: 'DODGE';
+    src: url('../fonts/DODGE/DODGE.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ethnocentric';
+    src: url('../fonts/ethnocentric/ethnocentric-rg.ttf') format('truetype'), url('../fonts/ethnocentric/ethnocentric-rg-it.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato/Lato-Regular.ttf') format('truetype'), url('../fonts/Lato/Lato-Black.ttf') format('truetype'),
+    url('../fonts/Lato/Lato-BlackItalic.ttf') format('truetype'), url('../fonts/Lato/Lato-Bold.ttf') format('truetype'),
+    url('../fonts/Lato/Lato-BoldItalic.ttf') format('truetype'), url('../fonts/Lato/Lato-Italic.ttf') format('truetype'),
+    url('../fonts/Lato/Lato-Light.ttf') format('truetype'), url('../fonts/Lato/Lato-LightItalic.ttf') format('truetype'),
+    url('../fonts/Lato/Lato-Thin.ttf') format('truetype'), url('../fonts/Lato/Lato-ThinItalic.ttf') format('truetype');
+}
