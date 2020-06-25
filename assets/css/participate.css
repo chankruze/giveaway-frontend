@@ -12,7 +12,7 @@ body {
 
 .participate-div {
     margin: auto;
-    padding: 5rem 3rem 5rem 3rem;
+    padding: 2rem;
 }
 
 .form-group input {
@@ -56,6 +56,10 @@ body {
     color: #00ACEE;
 }
 
+g {
+    color: #00FF00;
+}
+
 .circle-loader {
     margin-bottom: 3.5em;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -66,7 +70,7 @@ body {
     height: 7em;
     position: relative;
     text-align: center;
-    /* display: none; */
+    display: none;
 }
 
 .load-complete {
@@ -130,4 +134,32 @@ body {
         width: 1.75em;
         opacity: 1;
     }
+}
+
+.captcha {
+    border: 2px solid #00ACEE;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 2rem;
+}
+
+.fa-sync {
+    padding: .5rem;
+}
+
+#term {
+    display: none;
+}
+
+.modal {
+    color: #000000;
+}
+
+.modal-body h5{
+    text-align: center;
+    padding-bottom: 1.5rem;
+}
+
+r {
+    color: #FF0000;
 }

