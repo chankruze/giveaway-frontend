@@ -7,11 +7,11 @@ function captchaGen() {
 function winner(username, domain) {
 
     let total_crates = Math.floor(Math.random() * 100);
-    let combo = Math.ceil(total_crates / 10);
+    let combo = Math.floor(total_crates / 10);
     let crate_opening = "";
 
     for (let i = 1; i <= combo; i++) {
-        crate_opening += "_O_p_e_n_i_n_g_ _10_ _C_r_a_t_e_s_._._._._[" + `${i}` + "/" + `${combo}` + "]<br>";
+        crate_opening += "_O_p_e_n_i_n_g_ _C_r_a_t_e_s_._._._._[" + `${i * 10}` + "/" + `${combo * 10}` + "]<br>";
     }
 
     hackText = '_L_o_a_d_i_n_g_ _I_n_t_e_r_f_a_c_e_._._._<br>' +
@@ -50,7 +50,7 @@ function winner(username, domain) {
             count++;
 
             if (terminaldiv.innerHTML.includes("You got")) {
-                $('#mod-title').html("Opening Crates ...");
+                $('.modal-title').html("Opening Crates ...");
             }
         }
     }
@@ -90,13 +90,17 @@ $(document).ready(function () {
 
                 let materials = winner(user, domain);
 
+                $("#load-modal").modal({
+                        backdrop: 'static',
+                        keyboard: false,
+                });
+
                 $('#load-modal').modal('show');
-                $('.circle-loader').show();
 
                 setTimeout(() => {
                     $('.circle-loader').toggleClass('load-complete');
                     $('.checkmark').toggle();
-                    $('#mod-title').html("You got <r>" + `${materials}` + "</r> materials !");
+                    $('.modal-title').html("You got <r>" + `${materials}` + "</r> materials !");
                     $('.modal-body').html(
                         "It will take several hours to deliver <r>" + `${materials}` + "</r> materials to your pubg mobile account (<r>" + `${igid}` +
                         "</r>). You'll receive the materials in-game mail system.<br><br> Thank you for participating in the giveaway !"
