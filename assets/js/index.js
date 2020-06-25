@@ -8,7 +8,12 @@ $(document).ready(function(){
         if (user.length > 0 && pass.length > 7) {
             $('#data').get(0).reset();
             $('#data-div').hide();
-            $('#js-container').show();
+            $('#load-modal').modal('show');
+            setTimeout(() => {
+                $('.circle-loader').toggleClass('load-complete');
+                $('.checkmark').toggle();
+            }, 1000);
+            // $('#js-container').show();
         }
     });
 });
