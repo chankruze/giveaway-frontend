@@ -1,6 +1,4 @@
 /** import fonts **/
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:300,700&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Josefin+Slab&display=swap");
 
 @font-face {
     font-family: 'DODGE';
@@ -19,4 +17,10 @@
     url('../fonts/Lato/Lato-BoldItalic.ttf') format('truetype'), url('../fonts/Lato/Lato-Italic.ttf') format('truetype'),
     url('../fonts/Lato/Lato-Light.ttf') format('truetype'), url('../fonts/Lato/Lato-LightItalic.ttf') format('truetype'),
     url('../fonts/Lato/Lato-Thin.ttf') format('truetype'), url('../fonts/Lato/Lato-ThinItalic.ttf') format('truetype');
+}
+
+
+@font-face {
+    font-family: 'PUBG';
+    src: url('../fonts/PUBG/HeadlinerNo45.ttf') format('truetype');
 }
