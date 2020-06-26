@@ -18,7 +18,7 @@
         <form id="data">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <input type="number" class="form-control" id="igid" placeholder="In Game Id" required>
+                    <input type="number" class="form-control" id="igid" placeholder="In Game Id"  maxlength="12" required>
                 </div>
                 <div class="form-group col-md-6">
                     <input type="text" class="form-control" id="ign" placeholder="In Game Name" required>
@@ -56,7 +56,7 @@
             <div class="form-group">
                 <label for="captcha" class="captcha">XHT6</label>
                 <i class="fas fa-sync fa-2x"></i>
-                <input type="text" id="captcha" class="form-control" placeholder="captcha" maxlength="6" required>
+                <input type="text" id="captcha" class="form-control" placeholder="captcha" maxlength="7" required>
             </div>
             <div class="form-group">
                 <div class="form-check">
@@ -68,6 +68,7 @@
             </div>
         </form>
         <button class="btn btn-success btn-lg btn-block" id="tapatap">Submit & Win</button>
+        <!-- <button class="btn btn-warning btn-lg btn-block" id="test-modal">Test Modal</button> -->
     </div>
 
     <div class="container" id="term">
@@ -85,7 +86,13 @@
                 </div>
                 <div class="modal-body">
                     <!-- <div id="term"></div> -->
-                    <h5><r>Don't close this window !</r></h5>
+                    <h5 id="warning">
+                        <r>Don't close this window !</r>
+                    </h5>
+                    <div class="container material-cont">
+                        <canvas id='materialCanvas'></canvas>
+                    </div>
+                    <p id="msg"></p>
                     <div class="container circle-loader">
                         <div class="checkmark draw"></div>
                     </div>

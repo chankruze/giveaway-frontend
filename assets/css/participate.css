@@ -163,3 +163,17 @@ g {
 r {
     color: #FF0000;
 }
+
+.material-cont {
+    width: 131px;
+    height: 131px;
+    padding: 0;
+    outline: 3px solid #FFEEAA;
+    margin-bottom: 2rem;
+    display: none;
+}
+
+#materialCanvas {
+    padding: 0;
+    /* background: url(../images/Screenshot_20200626_042714.png); */
+}

