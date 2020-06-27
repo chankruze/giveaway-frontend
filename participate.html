@@ -101,12 +101,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Processing Data ...</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button> -->
                 </div>
                 <div class="modal-body">
-                    <!-- <div id="term"></div> -->
                     <h5 id="warning">
                         <r>Don't close this window !</r>
                     </h5>
@@ -117,6 +116,31 @@
                     <div class="container circle-loader">
                         <div class="checkmark draw"></div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="dismiss" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="snackbar">Verifying your data...<br>Please wait...</div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="err-modal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">503: Server Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Opps ;(</h3>
+                    <h5>Try again after sometime.</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="dismiss" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

