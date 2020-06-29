@@ -211,8 +211,9 @@ $(document).ready(function () {
                         method: "POST",
                         timeout: 2500,
                         data: JSON.stringify(payload),
-                        dataType: "json",
-                        contentType: "application/json",
+                        headers: {
+                            "Content-Type": "application/json"
+                          },
                         success: function () {
                             if ($('#snackbar').hasClass('show')) {
                                 $("#snackbar").removeClass('show');
