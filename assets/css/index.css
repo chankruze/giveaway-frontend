@@ -1,87 +1,99 @@
-@import "../bootstrap/css/bootstrap.css";
-@import "./fonts.css";
+@import"./common.css";
 
 body {
-    background: url(https://www.pubgmobile.com/en-US/m/images/shop_bgm.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  background-image: url(https://www.pubgmobile.com/en-US/m/images/shop_bgm.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: #fff;
+  font-family: "Teko", sans-serif;
+  margin: 0;
+  padding: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; */
 }
 
 ul {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 @media only screen and (max-width: 600px) {
-    body {
-        background-color: #000000;
+  body {
+    /* background-color: #000000;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%23280e02' points='1600 160 0 460 0 350 1600 50'/%3E%3Cpolygon fill='%23451204' points='1600 260 0 560 0 450 1600 150'/%3E%3Cpolygon fill='%23651305' points='1600 360 0 660 0 550 1600 250'/%3E%3Cpolygon fill='%23870f03' points='1600 460 0 760 0 650 1600 350'/%3E%3Cpolygon fill='%23A00' points='1600 800 0 800 0 750 1600 450'/%3E%3C/g%3E%3C/svg%3E");
         background-attachment: fixed;
-        background-size: cover;
-    }
+        background-size: cover; */
 
-    #wrapper {
-        margin-bottom: 2rem;
-    }
+    background-image: url(https://www.pubgmobile.com/id/event/royalepass13/images/kv_1s.jpg);
+    background-repeat: no-repeat;
+    background-size: cover 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: darken;
+  }
 
-    .title {
-        font-size: 6rem !important;
-    }
+  /* #wrapper {
+    margin-bottom: 2rem;
+  } */
 
-    li {
-        font-size: 0.8rem !important;
-    }
+  h1.title {
+    font-size: 6rem !important;
+  }
 
-    li span {
-        font-size: 2.5rem !important;
-    }
+  ul {
+    background-color: rgb(234, 163, 0, 0.5);
+    outline: 1px solid #ffcc57;
+    color: #000;
+  }
 
-    #wrapper a.btn {
-        font-size: 1rem;
-    }
+  li {
+    font-size: 1rem !important;
+  }
+
+  li span {
+    font-size: 3.5rem !important;
+  }
 }
 
 #wrapper {
-    text-align: center;
-    transform: translate(0%, 15%);
-    margin-bottom: 2rem;
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .title {
-    font-size: 8rem;
-    background: -webkit-linear-gradient(#FFFFFF, #FFEFBA);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: 'PUBG';
-    margin-top: 2rem;
+  font-size: 8rem;
+  background: -webkit-linear-gradient(#ffffff, #f7e29e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "PUBG";
+  /* margin-top: 2rem; */
 }
 
 a.btn {
-    border-radius: 0 !important;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-top: 2rem;
+  border-radius: 0 !important;
+  margin-top: 2rem;
+  background: #eaa300;
+  letter-spacing: 0.05rem;
+  color: #000;
+  text-transform: uppercase;
+  border: 1px solid #ffcc57;
+  outline: none;
 }
 
 r {
-    color: #f00;
+  color: #f00;
 }
 
 li {
-    display: inline-block;
-    font-size: 1.5em;
-    list-style-type: none;
-    padding: 1em;
-    text-transform: uppercase;
+  display: inline-block;
+  font-size: 1.5em;
+  list-style-type: none;
+  padding: 1em;
+  text-transform: uppercase;
 }
 
 li span {
-    display: block;
-    font-size: 4.5rem;
+  display: block;
+  font-size: 4.5rem;
 }

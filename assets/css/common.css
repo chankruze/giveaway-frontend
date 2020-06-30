@@ -1,0 +1,70 @@
+@import "../bootstrap/css/bootstrap.css";
+@import "../fontawesome/css/all.css";
+@import "../css/fonts.css";
+
+.btn-pubg {
+  border-radius: 0 !important;
+  margin-top: 2rem;
+  background: rgb(234, 163, 0, 1);
+  letter-spacing: 0.05rem;
+  color: #000;
+  border: 1px solid #ffcc57;
+  outline: none;
+  text-transform: uppercase;
+  font-family: "Teko", sans-serif;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-pubg:hover:not(.disabled) {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.navbar {
+  background: #000024;
+  border-bottom: 1px solid #feab02;
+  font-family: "Teko", sans-serif;
+  height: 80px;
+}
+
+.navbar-brand img {
+  width: 128px;
+  height: 128px;
+  margin-right: 5px;
+  border-radius: 5px;
+  float: left;
+}
+
+.navbar-brand {
+  color: #feab02 !important;
+}
+
+.top-tit {
+  color: #feab02;
+  font-size: 28px;
+  padding-left: 15px;
+  line-height: 1;
+  display: block;
+}
+
+.navbar-brand span {
+  display: block;
+  color: #d9d9d8;
+  font-size: 18px;
+  line-height: 1;
+}
+
+@media only screen and (max-width: 600px) {
+
+.navbar {
+    height: 65px;
+}
+  .navbar-brand img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .navbar-brand span {
+    font-size: 15px;
+  }
+}

