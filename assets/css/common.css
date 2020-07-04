@@ -1,6 +1,7 @@
 @import "../bootstrap/css/bootstrap.css";
 @import "../fontawesome/css/all.css";
-@import "../css/fonts.css";
+@import "./fonts.css";
+@import "./simpleSnackbar.min.css";
 
 .btn-pubg {
   border-radius: 0 !important;
@@ -60,11 +61,80 @@
     height: 65px;
 }
   .navbar-brand img {
-    width: 40px !important;
-    height: 40px !important;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
   }
 
   .navbar-brand span {
-    font-size: 15px;
+    font-size: 14px;
   }
+
+  .top-tit {
+    font-size: 18px;
+    padding-top: 6px;
+    padding-left: 8px;
+  }
+}
+
+
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+
+#snackbar {
+  visibility: hidden;
+  /* Hidden by default. Visible on click */
+  min-width: 250px;
+  /* Set a default minimum width */
+  margin-left: -125px;
+  /* Divide value of min-width by 2 */
+  background: #feab02;
+  border: 1px solid #ffcc57;
+  /* Black background color */
+  color: #000;
+  /* White text color */
+  text-align: center;
+  /* Centered text */
+  /* Rounded borders */
+  padding: 16px;
+  /* Padding */
+  position: fixed;
+  /* Sit on top of the screen */
+  z-index: 1;
+  /* Add a z-index if needed */
+  left: 50%;
+  /* Center the snackbar */
+  bottom: 50%;
+  /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+
+#snackbar.show {
+  visibility: visible;
+  /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

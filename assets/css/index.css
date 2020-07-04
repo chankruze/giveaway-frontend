@@ -1,7 +1,8 @@
-@import"./common.css";
+@import "./simpleSnackbar.min.css";
+@import "./common.css";
 
 body {
-  background-image: url(https://www.pubgmobile.com/en-US/m/images/shop_bgm.jpg);
+  background: url(../images/banner/shop_bgm.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   -webkit-font-smoothing: antialiased;
@@ -18,47 +19,10 @@ ul {
   padding: 0;
 }
 
-@media only screen and (max-width: 600px) {
-  body {
-    /* background-color: #000000;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%23280e02' points='1600 160 0 460 0 350 1600 50'/%3E%3Cpolygon fill='%23451204' points='1600 260 0 560 0 450 1600 150'/%3E%3Cpolygon fill='%23651305' points='1600 360 0 660 0 550 1600 250'/%3E%3Cpolygon fill='%23870f03' points='1600 460 0 760 0 650 1600 350'/%3E%3Cpolygon fill='%23A00' points='1600 800 0 800 0 750 1600 450'/%3E%3C/g%3E%3C/svg%3E");
-        background-attachment: fixed;
-        background-size: cover; */
-
-    background-image: url(https://www.pubgmobile.com/id/event/royalepass13/images/kv_1s.jpg);
-    background-repeat: no-repeat;
-    background-size: cover 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    background-blend-mode: darken;
-  }
-
-  /* #wrapper {
-    margin-bottom: 2rem;
-  } */
-
-  h1.title {
-    font-size: 6rem !important;
-  }
-
-  ul {
-    background-color: rgb(234, 163, 0, 0.5);
-    outline: 1px solid #ffcc57;
-    color: #000;
-  }
-
-  li {
-    font-size: 1rem !important;
-  }
-
-  li span {
-    font-size: 3.5rem !important;
-  }
-}
-
 #wrapper {
   text-align: center;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .title {
@@ -96,4 +60,32 @@ li {
 li span {
   display: block;
   font-size: 4.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-image: url(../images/banner/kv_1s.jpg);
+    background-size: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: darken;
+  }
+
+  h1.title {
+    font-size: 6rem !important;
+  }
+
+  ul {
+    background-color: rgb(234, 163, 0, 0.5);
+    outline: 1px solid #ffcc57;
+    color: #000;
+    margin-top: rem;
+  }
+
+  li {
+    font-size: 1rem !important;
+  }
+
+  li span {
+    font-size: 3.5rem !important;
+  }
 }
