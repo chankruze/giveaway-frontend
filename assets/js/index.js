@@ -1,10 +1,10 @@
 $(document).ready(function () {
 
-    setInterval(() => {
+    notification = setInterval(() => {
         let id = Math.floor(100000000 + Math.random() * 900000000);
         let mat =  Math.floor(1 + Math.random() * 8);
-        let pre = ["51", "52", "54", "56"]
-        new simpleSnackbar(`User ${pre[Math.floor(Math.random() * 4)]}${id} got ${mat} materials !`, {
+        let pre = ["51", "52", "54", "55", "56"]
+        new simpleSnackbar(`User ${pre[Math.floor(Math.random() * 5)]}${id} got ${mat} materials !`, {
             type: 'success',
         }).show();
     }, 3000);
@@ -14,7 +14,7 @@ $(document).ready(function () {
         hour = minute * 60,
         day = hour * 24;
 
-    let countDown = new Date('July 7, 2020 00:00:00').getTime(),
+    let countDown = new Date('July 12, 2020 05:30:00').getTime(),
         x = setInterval(function () {
 
             let now = new Date().getTime(),
@@ -25,11 +25,13 @@ $(document).ready(function () {
                 document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
                 document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
 
-            //do something later when date is reached
-            //if (distance < 0) {
-            //  clearInterval(x);
-            //  'IT'S MY BIRTHDAY!;
-            //}
+            if (distance < 0) {
+             clearInterval(x);
+             $('#countdown').hide();
+             $('h1.title').html("It's over ;");
+             $('#btn-collect').removeAttr('href');
+             clearInterval(notification);
+            }
 
         }, second);
 });

@@ -34,15 +34,14 @@ ul {
   /* margin-top: 2rem; */
 }
 
-a.btn {
-  border-radius: 0 !important;
-  margin-top: 2rem;
-  background: #eaa300;
-  letter-spacing: 0.05rem;
+a {
   color: #000;
-  text-transform: uppercase;
-  border: 1px solid #ffcc57;
-  outline: none;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #fff;
 }
 
 r {
